@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2656916c8e588ba4da076b9d215555ed, type: 3}
+  m_Name: StaticData
+  m_EditorClassIdentifier: 
+  UI: {fileID: 8731096249362575007, guid: cc9bb5332ec044e439b690c5743220f7, type: 3}
+  PlusOne: {fileID: 3925441417989015099, guid: 60e1f5179795daa4186ad3bb3b4b8d67, type: 3}
+  TrackViews:
+  - {fileID: 4538341946347113221, guid: 2bc512ba9f007fc41bea7fcba61f0cf4, type: 3}
+  - {fileID: 1801973622622010829, guid: 1211be417b5ca7f418067c135bbaf68d, type: 3}
+  - {fileID: 5759801042975010255, guid: 29a2fb6f2504e5e4b94cdc71cfbb4ef5, type: 3}
+  - {fileID: 7607350088026966897, guid: 8baf98adad666f045a3a00b00b27515f, type: 3}
+  - {fileID: 52972123317544649, guid: d1d6983cddc65684ea5cb434df4d9ef8, type: 3}
+  CubeStackEffect: {fileID: 253324237633408118, guid: b6c0b1506426c6842aef80fad4e5bb5e,
+    type: 3}
+  hFOV: 30
+  orthoSize: 10
+  DefaultResolution: {x: 1920, y: 1080}
+  cameraOffset: {x: 3.5, y: 11, z: -12}
+  cameraRotation: {x: 30, y: -10, z: 0}
+  cameraSmoothness: 0.01
+  shakeTime: 0.2
+  shakeAmount: 5
+  shakeSpeed: 3
+  spawnSpeed: 0.45
+  spawnEase: 6
+  border: 2.025
+  intervalToTrackSpawn: 2.5
+  intervalToTrackDestroy: 4.5
+  playerSpeed: 15
+  playerVerticalSpeed: 8
+  deadZone: 0.02
+  yLowerLimit: -20
+  ThisLevels: {fileID: 11400000, guid: 439e42971724e3948b3b54438c30a9dc, type: 2}
