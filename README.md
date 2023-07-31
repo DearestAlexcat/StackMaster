@@ -1,6 +1,4 @@
-# StackMaster. Unity ECS. URP.
-
-## Unity game example using LeoECS
+# StackMaster/Unity/URP/ECS 
 
 ## Features
 
