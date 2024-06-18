@@ -2,7 +2,7 @@
 
 ## Features
 
-* 2 versions: player/track movement
+* 2 versions: player movement (branch: main2), track movement (branch: main)
 * Adaptive camera, shaking, smoother following player
 * Game start and end screen
 * Ragdoll
