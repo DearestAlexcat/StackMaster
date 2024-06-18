@@ -2,7 +2,8 @@ using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using UnityEngine;
 
-namespace Client {
+namespace Client 
+{
     sealed class IntervalTrackDestroySystem : IEcsInitSystem, IEcsRunSystem
     {
         private readonly EcsCustomInject<TrackViewService> _tracksView = default;

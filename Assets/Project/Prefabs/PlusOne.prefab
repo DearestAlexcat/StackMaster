@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5725390826769095594}
   - component: {fileID: 3925441417989015099}
   m_Layer: 0
-  m_Name: OnePlus
+  m_Name: PlusOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -59,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4392211344850124078, guid: 0f469d3eb701f71469e3a031a46a3f03, type: 2}
+  - {fileID: 2232081457206697239, guid: 2657177e3cf36d247b00b8ddd4f96f80, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -103,9 +102,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: +1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0f469d3eb701f71469e3a031a46a3f03, type: 2}
-  m_sharedMaterial: {fileID: -4392211344850124078, guid: 0f469d3eb701f71469e3a031a46a3f03,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2657177e3cf36d247b00b8ddd4f96f80, type: 2}
+  m_sharedMaterial: {fileID: 2232081457206697239, guid: 2657177e3cf36d247b00b8ddd4f96f80, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

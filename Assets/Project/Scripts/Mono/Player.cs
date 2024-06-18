@@ -9,29 +9,32 @@ public class Player : MonoBehaviour, IEnumerable<Pickup>
     [SerializeField] float downForce = 1f;
     [SerializeField] float velocityClamp = 2.5f;
 
+    [Header("Effects")]
     [SerializeField] ParticleSystem warpEffect;
     [SerializeField] TrailRenderer trail;
 
-    [SerializeField] Pickup pickupedPlayer;
+    [Header("Player")]
     [SerializeField] Animator animator;
-
-    [SerializeField] Transform ragdollTransform;
-    [SerializeField] Rigidbody ragdollRigidBody;
     [SerializeField] BoxCollider playerCollider;
+    [SerializeField] Rigidbody playerRigidbody;
+    [SerializeField] Transform playerObject;
 
+    [Header("Ragdoll")]
+    [SerializeField] Transform ragdollHolder;
+
+    [Header("List")]
     [SerializeField] List<Pickup> pickuped;
 
     public float VelocityClamp => velocityClamp;
-    public Pickup PickupedPlayer => pickupedPlayer;
-    public Transform RagdollTransform => ragdollTransform;
-    public Rigidbody RagdollRigidBody => ragdollRigidBody;
-    public List<Pickup> Pickuped => pickuped;
-
+    public Rigidbody PlayerRigidbody => playerRigidbody;
+    public Transform PlayerObject => playerObject;
+    public Transform RagdollHolder => ragdollHolder;
+    public TrailRenderer Trail => trail;
 
     private void Start()
     {
         EnableRagdoll(false);
-    //  Debug.Log(Animator.StringToHash("Jump")); // 125937960
+        //  Debug.Log(Animator.StringToHash("Jump")); // 125937960
     }
 
     public void PlayWarpEffect()
@@ -41,16 +44,15 @@ public class Player : MonoBehaviour, IEnumerable<Pickup>
 
     public void PlayJumpAnimation()
     {
-        animator.SetTrigger(125937960); 
+        animator.SetTrigger(125937960);
     }
 
     private void EnableRagdoll(bool value)
     {
-        ragdollTransform.gameObject.SetActive(value);
+        ragdollHolder.gameObject.SetActive(value);
         animator.enabled = !value;
         playerCollider.enabled = !value;
-
-
+        playerRigidbody.isKinematic = value;
     }
 
     public bool ContainsPickuped(Pickup pickup)
@@ -60,7 +62,7 @@ public class Player : MonoBehaviour, IEnumerable<Pickup>
 
     public void RemovePickuped(Pickup pickup)
     {
-        if(CheckRemovedLast(pickup))
+        if (IsRemovingTopCube(pickup))
         {
             PlayJumpAnimation();
         }
@@ -68,35 +70,23 @@ public class Player : MonoBehaviour, IEnumerable<Pickup>
         pickuped.Remove(pickup);
     }
 
-    private bool CheckRemovedLast(Pickup pickup)
+    private bool IsRemovingTopCube(Pickup pickup)
     {
-        if(pickuped.Count > 1)
-        {
-            if (pickuped[pickuped.Count - 1] == pickup)
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return pickuped.Count > 1 && pickuped[pickuped.Count - 1] == pickup;
     }
 
     public void CheckLevelComplete()
     {
-        if(pickuped.Count == 0)
+        if (pickuped.Count == 0)
         {
-            trail.time = int.MaxValue;
-            //warpEffect.Stop();
-            EnableRagdoll(true);
-
-            Service<EcsWorld>.Get().ChangeState(GameState.LOSE);
+            SetLevelLoseState();
         }
     }
 
     public void SetLevelLoseState()
     {
+        warpEffect.Stop();
         trail.time = int.MaxValue;
-        //warpEffect.Stop();
         EnableRagdoll(true);
         Service<EcsWorld>.Get().ChangeState(GameState.LOSE);
     }
@@ -108,12 +98,12 @@ public class Player : MonoBehaviour, IEnumerable<Pickup>
             item.ThisRigidbody.AddForce(Vector3.down * downForce, ForceMode.Impulse);
         }
 
-        pickupedPlayer.ThisRigidbody.AddForce(Vector3.down * downForce, ForceMode.Impulse);
+        playerRigidbody.AddForce(Vector3.down * downForce, ForceMode.Impulse);
     }
 
     public void UpdatePickupedPlayerPosition()
     {
-        pickupedPlayer.Parent.localPosition = Vector3.up * (pickuped.Count + 1);
+        playerObject.localPosition = Vector3.up * (pickuped.Count + 1);
     }
 
     public void AddedPickupCube(Pickup pickup)

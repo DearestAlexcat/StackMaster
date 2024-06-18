@@ -14,7 +14,9 @@ public class PopUpText : MonoBehaviour
 
     private void Start()
     {
-        transform.DOLocalMove(transform.localPosition + Vector3.up * positionUP, durationUP).OnComplete(() => Destroy(gameObject, timeToDestruction));
+        transform.DOLocalMove(transform.localPosition + Vector3.up * positionUP, durationUP)
+            .SetLink(gameObject)
+            .OnComplete(() => Destroy(gameObject, timeToDestruction));
         //textUP.DOFade(0f, durationFade).SetEase(ease);
     }
 }

@@ -19,29 +19,15 @@ namespace Client
 
         public void Run(IEcsSystems systems)
         {
-            if (_runtimeData.Value.GameState == GameState.PLAYING)
-            {
-                PivotMovement();
-                PlayerMovement();
-            }
-
-            if (_runtimeData.Value.GameState == GameState.LOSE)
-            {
-                FallMonitoring();
-            }
-        }
-
-        private void FallMonitoring()
-        {
-            if(_sceneContext.Value.PlayerView.RagdollTransform.position.y < _staticData.Value.yLowerLimit)
-            {
-                _sceneContext.Value.PlayerView.RagdollRigidBody.isKinematic = true;
-            }
+            if (_runtimeData.Value.GameState != GameState.PLAYING) return;
+            
+            PivotMovement();
+            PlayerMovement();
         }
 
         private void PivotMovement()
         {
-             _runtimeData.Value.Pivot += _sceneContext.Value.LevelRoot.forward * Time.deltaTime * _staticData.Value.playerVerticalSpeed;
+             _runtimeData.Value.Pivot += _sceneContext.Value.LevelRoot.forward * Time.deltaTime * _staticData.Value.playerForwardSpeed;
         }
 
         private void PlayerMovement()

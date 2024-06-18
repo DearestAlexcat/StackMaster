@@ -79,12 +79,8 @@ namespace Client
         private void SetPosition(TrackView trackSegment)
         {
             trackSegment.transform.forward = _tracksView.Value.Last().transform.forward;
-
-            Vector3 exitPoint = _tracksView.Value.Last().ExitPoint.position;
-            Vector3 entryPoint = trackSegment.EntryPoint.position;
-
-            Vector3 pos = exitPoint + (trackSegment.transform.position - entryPoint);
-            trackSegment.transform.position = pos;
+            trackSegment.transform.position = _tracksView.Value.Last().ExitPoint.position +
+                                            (trackSegment.transform.position - trackSegment.EntryPoint.position);
         }
     }
 }

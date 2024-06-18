@@ -7,7 +7,6 @@ namespace Client
     public class Levels : ScriptableObject
     {
         public string[] Scenes;
-        public int SkipLevels;
 
         public string this[int index]
         {
@@ -17,7 +16,7 @@ namespace Client
             }
         }
 
-        public static void LoadCurrentWithSkip()
+        public static void LoadCurrent()
         {
             var level = Progress.CurrentLevel;
             var staticData = Service<StaticData>.Get();
@@ -28,7 +27,6 @@ namespace Client
             if (level >= totalLevels)
             {
                 index = level % totalLevels;
-                index = staticData.ThisLevels.SkipLevels + index % (totalLevels - staticData.ThisLevels.SkipLevels);
             }
 
             var levelName = staticData.ThisLevels.Scenes[index];

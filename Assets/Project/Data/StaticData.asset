@@ -20,8 +20,7 @@ MonoBehaviour:
   - {fileID: 5759801042975010255, guid: 29a2fb6f2504e5e4b94cdc71cfbb4ef5, type: 3}
   - {fileID: 7607350088026966897, guid: 8baf98adad666f045a3a00b00b27515f, type: 3}
   - {fileID: 52972123317544649, guid: d1d6983cddc65684ea5cb434df4d9ef8, type: 3}
-  CubeStackEffect: {fileID: 253324237633408118, guid: b6c0b1506426c6842aef80fad4e5bb5e,
-    type: 3}
+  CubeStackEffect: {fileID: 253324237633408118, guid: b6c0b1506426c6842aef80fad4e5bb5e, type: 3}
   hFOV: 30
   orthoSize: 10
   DefaultResolution: {x: 1920, y: 1080}
@@ -36,8 +35,9 @@ MonoBehaviour:
   border: 2.025
   intervalToTrackSpawn: 2.5
   intervalToTrackDestroy: 4.5
+  pointerSpeed: 8
   playerSpeed: 15
-  playerVerticalSpeed: 8
+  playerForwardSpeed: 8
   deadZone: 0.02
-  yLowerLimit: -20
+  lowerLimitByY: -20
   ThisLevels: {fileID: 11400000, guid: 439e42971724e3948b3b54438c30a9dc, type: 2}

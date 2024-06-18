@@ -27,7 +27,6 @@ namespace Client
                 var world = systems.GetWorld();
 
                 world.NewEntityRef<SpawnTrackSegmentRequest>().Number = 1;
-                
                 cooldown = _staticData.Value.intervalToTrackSpawn;
             }
         }
