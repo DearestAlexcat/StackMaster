@@ -24,11 +24,6 @@ namespace Client
         public Vector3 Position;
     }
 
-    public struct DestroyTrackSegmentRequest 
-    { 
-        public TrackView Value;
-    }
-
     public struct SpawnTrackSegmentRequest
     {
         public int Number;
@@ -44,10 +39,5 @@ namespace Client
     struct ChangeStateEvent
     {
         public GameState NewGameState;
-    }
-
-    public struct Component<T>
-    {
-        public T Value;
     }
 }

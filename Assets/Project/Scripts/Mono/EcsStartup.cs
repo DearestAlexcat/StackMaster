@@ -1,11 +1,9 @@
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.ExtendedSystems;
+using LeoEcsPhysics;
 using System.Collections;
 using UnityEngine;
-using LeoEcsPhysics;
-using Game;
-
 
 namespace Client 
 {
@@ -35,21 +33,15 @@ namespace Client
             runtimeData = new RuntimeData();
 
             Service<EcsWorld>.Set(_world);
-            Service<SceneContext>.Set(sceneContext);
-            Service<RuntimeData>.Set(runtimeData);
-            Service<StaticData>.Set(staticData);
-
-            GameInitialization.FullInit();
 
             _update
                 .Add(new InitializeSystem())
                 .Add(new ChangeStateSystem())
 
-                .Add(new TapToStartSystem())
-
                 .Add(new PlayerInputSystem())
                 .Add(new PlayerMovementSystem())
-             
+                .DelHere<PlayerInputComponent>()
+
                 .Add(new CameraShakeSystem())
                 .DelHere<CameraShakeReguest>()
                 .Add(new CameraFollowSystem())
@@ -67,10 +59,15 @@ namespace Client
 
                 .Add(new FallingPickupCubeSystem())
                 .DelHere<FallingRequest>()
+
+                .Add(new TapToStartSystem())
+
+                .Add(new PlayerFallSystem())
+
 #if UNITY_EDITOR
                 .Add (new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
-                .Inject(staticData, runtimeData, sceneContext, Service<UI>.Get(), GetComponent<TrackViewService>())
+                .Inject(staticData, runtimeData, sceneContext, GetComponent<TrackViewService>())
                 .Inject(new RandomService(_useSeed ? _randomSeed : null))
                 .Init();
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Game
+namespace Client
 {
     public sealed class RandomService
     {

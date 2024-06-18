@@ -34,10 +34,11 @@ namespace Client
         public float intervalToTrackDestroy = 2f;
 
         [Header("PLAYER")]
+        public float pointerSpeed = 1f;
         public float playerSpeed = 1f;
-        public float playerVerticalSpeed = 1f;
+        public float playerForwardSpeed = 1f;
         public float deadZone = 0.01f;
-        public float yLowerLimit = -20;
+        public float lowerLimitByY = -20;
 
         [Header("LEVELS")]
         public Levels ThisLevels;

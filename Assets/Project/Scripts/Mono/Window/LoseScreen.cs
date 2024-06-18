@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class LoseScreen : Screen
 {
+    [SerializeField] Image whiteBrush;
     [SerializeField] Button buttonForward;
     [Space]
     [SerializeField] CanvasGroup canvasGroup;
@@ -17,12 +18,14 @@ public class LoseScreen : Screen
 
     private void OnEnable()
     {
+        whiteBrush.DOFillAmount(1f, fadeDuration).SetEase(fadeEase).OnComplete(() => buttonForward.enabled = true);
         canvasGroup.DOFade(1f, fadeDuration).SetEase(fadeEase);
     }
 
     private void OnDisable()
     {
         canvasGroup.alpha = 0f;
+        whiteBrush.fillAmount = 0f;
 
         Color color = blackout.color;
         color.a = 0f;
@@ -31,14 +34,10 @@ public class LoseScreen : Screen
 
     private void Start()
     {
-        ButtonForwardInitialize();
-    }
-
-    private void ButtonForwardInitialize()
-    {
         buttonForward.onClick.AddListener(() =>
         {
-            blackout.DOFade(1f, blackoutDuration).SetEase(blackoutEase).OnComplete(() => Levels.LoadCurrentWithSkip());
+            buttonForward.enabled = false;
+            blackout.DOFade(1f, blackoutDuration).SetEase(blackoutEase).OnComplete(() => Levels.LoadCurrent());
         });
     }
 }

@@ -7,11 +7,10 @@ namespace Client
     sealed class PlayerInputSystem : IEcsInitSystem, IEcsRunSystem
     {
         private readonly EcsCustomInject<StaticData> _staticData = default;
-        private readonly EcsFilterInject<Inc<PlayerInputComponent>> _inputFilter = default;
         private readonly EcsCustomInject<RuntimeData> _runtimeData = default;
 
         Vector3 m_StartingTouch;
-        float offsetX, offsetX2;
+        float pointerOffset, playerOffset;
 
         public void Init(IEcsSystems systems)
         {
@@ -22,12 +21,17 @@ namespace Client
         {
             if (_runtimeData.Value.GameState != GameState.PLAYING) return;
 
-            DoInput();
+            DoInput(systems);
         }
 
-        public void DoInput()
+        float ExpDecay(float a, float b, float decay, float dt)
         {
-            Vector2 diff = Vector3.zero;
+            return b + (a - b) * Mathf.Exp(-decay * dt);
+        }
+
+        void DoInput(IEcsSystems systems)
+        {
+            float diffX = 0f;
 
             if (Input.GetMouseButtonUp(0))
             {
@@ -41,28 +45,18 @@ namespace Client
             {
                 if (Vector3.Distance(m_StartingTouch, Input.mousePosition) > _staticData.Value.deadZone)
                 {
-                    diff = Input.mousePosition - m_StartingTouch;
-                    diff = new Vector2(diff.x / UnityEngine.Screen.width, diff.y / UnityEngine.Screen.height);
+                    diffX = (Input.mousePosition - m_StartingTouch).x;
+                    diffX = diffX / UnityEngine.Screen.width;
                     m_StartingTouch = Input.mousePosition;
                 }
             }
 
-            if (offsetX + diff.x * _staticData.Value.playerSpeed < _staticData.Value.border && 
-                offsetX + diff.x * _staticData.Value.playerSpeed > -_staticData.Value.border)
-            {
-                offsetX += diff.x * _staticData.Value.playerSpeed; 
-            }
-            else
-            {
-                offsetX = Mathf.Lerp(offsetX, Mathf.Sign(offsetX) * _staticData.Value.border, Time.deltaTime * 2);
-            }
+            var shift = diffX * _staticData.Value.pointerSpeed;
+            pointerOffset = Mathf.Clamp(pointerOffset + shift, -_staticData.Value.border, _staticData.Value.border);
 
-            offsetX2 = Mathf.Lerp(offsetX2, offsetX, 0.1f);
+            playerOffset = ExpDecay(playerOffset, pointerOffset, _staticData.Value.playerSpeed, Time.deltaTime);
 
-            foreach (var entity in _inputFilter.Value)
-            {
-                _inputFilter.Pools.Inc1.Get(entity).OffsetX = offsetX2;
-            }
+            systems.GetWorld().NewEntityRef<PlayerInputComponent>().OffsetX = playerOffset;
         }
     }
 }

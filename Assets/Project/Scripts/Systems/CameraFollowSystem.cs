@@ -19,16 +19,12 @@ namespace Client
 
         public void Run(IEcsSystems systems)
         {
-            SetOrientation();
-        }
-
-        private void SetOrientation()
-        {
-            Vector3 currentPosition = Camera.main.transform.position;
-            Vector3 targetPoint = _runtimeData.Value.Pivot + _staticData.Value.cameraOffset;
-
             Camera.main.transform.rotation = Quaternion.Euler(_staticData.Value.cameraRotation);
-            Camera.main.transform.position = Vector3.SmoothDamp(currentPosition, targetPoint, ref cameraCurrentVelocity, _staticData.Value.cameraSmoothness);
+            Camera.main.transform.position = Vector3.SmoothDamp(
+                                                Camera.main.transform.position, 
+                                                _runtimeData.Value.Pivot + _staticData.Value.cameraOffset, 
+                                                ref cameraCurrentVelocity, 
+                                                _staticData.Value.cameraSmoothness);
         }
     }
 }

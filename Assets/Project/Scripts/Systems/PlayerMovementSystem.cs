@@ -7,7 +7,6 @@ namespace Client
     sealed class PlayerMovementSystem : IEcsRunSystem, IEcsInitSystem
     {
         private readonly EcsCustomInject<SceneContext> _sceneContext = default;
-        private readonly EcsCustomInject<StaticData> _staticData = default;
         private readonly EcsCustomInject<RuntimeData> _runtimeData = default;
 
         private readonly EcsFilterInject<Inc<PlayerInputComponent>> _inputFilter = default;
@@ -19,23 +18,9 @@ namespace Client
 
         public void Run(IEcsSystems systems)
         {
-            if (_runtimeData.Value.GameState == GameState.PLAYING)
-            {
-                PlayerMovement();
-            }
+            if (_runtimeData.Value.GameState != GameState.PLAYING) return;
 
-            if (_runtimeData.Value.GameState == GameState.LOSE)
-            {
-                FallMonitoring();
-            }
-        }
-
-        private void FallMonitoring()
-        {
-            if(_sceneContext.Value.PlayerView.RagdollTransform.position.y < _staticData.Value.yLowerLimit)
-            {
-                _sceneContext.Value.PlayerView.RagdollRigidBody.isKinematic = true;
-            }
+            PlayerMovement();
         }
 
         private void PlayerMovement()

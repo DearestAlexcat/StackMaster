@@ -14,10 +14,7 @@ namespace Client
         {
             if (_shakeFilter.Value.IsEmpty()) return;
 
-            foreach (var item in _shakeFilter.Value)
-            {
-                Shake().Forget();
-            }
+            Shake().Forget();
         }
 
         async UniTask Shake()
@@ -30,7 +27,7 @@ namespace Client
             {
                 var randomPoint = origPosition + Random.insideUnitSphere * _staticData.Value.shakeAmount;
                 
-                thisTransform.localPosition = Vector3.Lerp(thisTransform.localPosition, randomPoint, Time.deltaTime * _staticData.Value.shakeSpeed);
+                thisTransform.localPosition = ExpDecay(thisTransform.localPosition, randomPoint, _staticData.Value.shakeSpeed, Time.deltaTime);
 
                 await UniTask.NextFrame();
 
@@ -40,5 +37,9 @@ namespace Client
             thisTransform.localPosition = origPosition;
         }
 
+        Vector3 ExpDecay(Vector3 a, Vector3 b, float decay, float dt)
+        {
+            return b + (a - b) * Mathf.Exp(-decay * dt);
+        }
     }
 }

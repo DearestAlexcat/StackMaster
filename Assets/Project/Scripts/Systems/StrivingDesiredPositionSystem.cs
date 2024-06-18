@@ -14,17 +14,17 @@ public class StrivingDesiredPositionSystem : IEcsRunSystem
 
         foreach (var pickuped in _sceneContext.Value.PlayerView)
         {
-            VelocityController(pickuped);
+            VelocityController(pickuped.ThisRigidbody);
         }
 
-        VelocityController(_sceneContext.Value.PlayerView.PickupedPlayer);
+        VelocityController(_sceneContext.Value.PlayerView.PlayerRigidbody);
     }
 
-    private void VelocityController(Pickup pickuped)
+    private void VelocityController(Rigidbody rigidbody)
     {
-        if (pickuped.ThisRigidbody.velocity.y > 0f)
+        if (rigidbody.velocity.y > 0f)
         {
-            pickuped.ThisRigidbody.velocity = Vector3.ClampMagnitude(pickuped.ThisRigidbody.velocity, _sceneContext.Value.PlayerView.VelocityClamp);
+            rigidbody.velocity = Vector3.ClampMagnitude(rigidbody.velocity, _sceneContext.Value.PlayerView.VelocityClamp);
         }
     }
 }

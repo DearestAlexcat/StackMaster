@@ -1,17 +1,13 @@
 ﻿using System;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
-using Cysharp.Threading.Tasks;
 
 namespace Client
 {
     class ChangeStateSystem : IEcsRunSystem
     {
         private readonly EcsCustomInject<RuntimeData> _runtimeData = default;
-        private readonly EcsCustomInject<UI> _ui = default;
-
         private readonly EcsFilterInject<Inc<ChangeStateEvent>> _stateFilter = default;
-
         private readonly EcsWorldInject _world = default;
 
         public void Run(IEcsSystems systems)
@@ -27,13 +23,13 @@ namespace Client
                     case GameState.NONE:
                         break;
                     case GameState.BEFORE:
-                        _ui.Value.StartScreen.Show();
+                        Service<UI>.Get().StartScreen.Show();
                         break;
                     case GameState.PLAYING:
-                        _ui.Value.StartScreen.Show(false);
+                        Service<UI>.Get().StartScreen.Show(false);
                         break;
                     case GameState.LOSE:
-                        _ui.Value.LoseScreen.Show();
+                        Service<UI>.Get().LoseScreen.Show();
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

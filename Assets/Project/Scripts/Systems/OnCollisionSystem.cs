@@ -25,7 +25,7 @@ namespace Client
                 ref var eventData = ref _poolEnter.Get(entity);
                 var collider = eventData.collider;
                
-                if (collider.CompareTag("Pickuped"))
+                if (collider.CompareTag("Pickuped")) // The cube under the player crashed into the wall
                 {
                     var pickup = collider.gameObject.GetComponent<Pickup>();
 
@@ -39,7 +39,7 @@ namespace Client
                     }
                 }
 
-                if(collider.CompareTag("Player"))
+                if(collider.CompareTag("Player")) // The player crashed into the wall
                 {
                     _sceneContext.Value.PlayerView.SetLevelLoseState();
                 }

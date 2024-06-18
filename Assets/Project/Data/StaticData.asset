@@ -36,8 +36,9 @@ MonoBehaviour:
   border: 2.025
   intervalToTrackSpawn: 2.5
   intervalToTrackDestroy: 4.5
+  pointerSpeed: 8
   playerSpeed: 15
-  playerVerticalSpeed: 8
+  playerForwardSpeed: 8
   deadZone: 0.02
-  yLowerLimit: -20
+  lowerLimitByY: -20
   ThisLevels: {fileID: 11400000, guid: 439e42971724e3948b3b54438c30a9dc, type: 2}

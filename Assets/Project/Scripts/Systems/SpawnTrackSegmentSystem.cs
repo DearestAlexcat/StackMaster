@@ -2,7 +2,6 @@ using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using UnityEngine;
 using DG.Tweening;
-using Game;
 
 namespace Client 
 {
@@ -44,7 +43,7 @@ namespace Client
 
             for (int i = 0; i < component.Number; i++)
             {
-                var trackSegment = Object.Instantiate(GetRandomTrack(), Vector3.zero, Quaternion.identity, _sceneContext.Value.LevelRoot);
+                var trackSegment = Object.Instantiate(GetRandomTrack(), _sceneContext.Value.LevelRoot);
 
                 SetPosition(trackSegment);
 
@@ -72,19 +71,15 @@ namespace Client
             trackSegment.transform
                 .DOMoveY(0f, _staticData.Value.spawnSpeed)
                 .SetEase(_staticData.Value.spawnEase)
-             // .SetSpeedBased()
                 .SetLink(trackSegment.gameObject);
         }
 
         private void SetPosition(TrackView trackSegment)
         {
             trackSegment.transform.forward = _tracksView.Value.Last().transform.forward;
+            trackSegment.transform.position = _tracksView.Value.Last().ExitPoint.position + 
+                                            (trackSegment.transform.position - trackSegment.EntryPoint.position);
 
-            Vector3 exitPoint = _tracksView.Value.Last().ExitPoint.position;
-            Vector3 entryPoint = trackSegment.EntryPoint.position;
-
-            Vector3 pos = exitPoint + (trackSegment.transform.position - entryPoint);
-            trackSegment.transform.position = pos;
         }
     }
 }

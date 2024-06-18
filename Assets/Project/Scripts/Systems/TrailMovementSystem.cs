@@ -14,7 +14,7 @@ namespace Client
         {
             if (_runtimeData.Value.GameState != GameState.PLAYING) return;
 
-            var distance = _sceneContext.Value.LevelRoot.forward * Time.deltaTime * _staticData.Value.playerVerticalSpeed;
+            var distance = _sceneContext.Value.LevelRoot.forward * Time.deltaTime * _staticData.Value.playerForwardSpeed;
 
             if (_sceneContext.Value.PlayerView.Trail.positionCount > 0)
             {

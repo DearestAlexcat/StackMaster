@@ -13,7 +13,7 @@ namespace Client
         {
             if (_runtimeData.Value.GameState != GameState.NONE) return; // StartScreen.cs sets the state to NONE
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonUp(0))
             {
                 _sceneContext.Value.PlayerView.PlayWarpEffect();
                 systems.GetWorld().NewEntityRef<ChangeStateEvent>().NewGameState = GameState.PLAYING;
