@@ -15,4 +15,4 @@
     * the text that "appears" when a new cube is stacked. For example +1
     * infinite level generation
 
-![](StackMaster.gif)
+https://github.com/DearestAlexcat/StackMaster/assets/28567306/876c2f94-7c80-4a9a-aac3-7c9481875867
